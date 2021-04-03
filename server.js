@@ -67,29 +67,6 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 
-// step 28 adding a PUT request AFTER app.use
-app.put('/quotes', (req, res) => {
-//  console.log(req.body) // step 28.5 now that you've seen the result in terminal, comment out!
-
-// step 29 START
-quotesCollection.findOneAndUpdate(
-  { name: 'Yoda' }, 
-  {
-    $set: {
-      name: req.body.name,
-      quote: req.body.quote
-    }
-  },
-  {
-    upsert: true
-  }
-)
-  .then(result => {console.log(result)}) // STEP 30 added "console.log(result)"
-  .catch(error => console.error(error))
-})
-
-// step 29 END
-
 // step 3 (was step 3)
 // app.get('/', (req, res) => {
 //   res.send('Hello World')
@@ -203,6 +180,29 @@ app.post('/quotes', (req, res) => {
     .catch(error => console.error(error))
 })
 
+
+// step 28 adding a PUT request AFTER app.use
+app.put('/quotes', (req, res) => {
+//  console.log(req.body) // step 28.5 now that you've seen the result in terminal, comment out!
+
+// step 29 START
+quotesCollection.findOneAndUpdate(
+  { name: 'Yoda' }, 
+  {
+    $set: {
+      name: req.body.name,
+      quote: req.body.quote
+    }
+  },
+  {
+    upsert: true
+  }
+)
+  .then(result => {console.log(result)}) // STEP 30 added "console.log(result)"
+  .catch(error => console.error(error))
+})
+
+// step 29 END
 
 
 
