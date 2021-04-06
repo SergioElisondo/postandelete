@@ -48,27 +48,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     const quotesCollection = db.collection('quotes')
 
 
-
-
-// STEP 35 add this to the MAIN.JS
-// const messageDiv = document.querySelector('#message')
-
-// deleteButton.addEventListener('click', _ => {
-//   fetch(/* ... */)
-//     .then(/* ... */)
-//     .then(response => {
-//       if (response === 'No quote to delete') {
-//         messageDiv.textContent = 'No Darth Vadar quote to delete'
-//       } else {
-//         window.location.reload(true)
-//       }
-//     })
-//     .catch(/* ... */)
-// })
-
-
-
-
 // STEP 15 
 app.set('view engine', 'ejs')
 // STEP 15.5 create the index.ejs like:
@@ -87,6 +66,13 @@ app.use(bodyParser.json())
 // STEP 24.1 now added
 app.use(express.static('public'))
 
+
+// step 28 adding a PUT request AFTER app.use
+app.put('/quotes', (req, res) => {
+console.log(req.body) // step 28.5 now that you've seen the result in terminal, comment out!
+})
+
+// step 29 END
 
 // step 3 (was step 3)
 // app.get('/', (req, res) => {
@@ -202,84 +188,6 @@ app.post('/quotes', (req, res) => {
 })
 
 
-// step 28 adding a PUT request AFTER app.use
-app.put('/quotes', (req, res) => {
-//  console.log(req.body) // step 28.5 now that you've seen the result in terminal, comment out!
-
-// step 29 START
-quotesCollection.findOneAndUpdate(
-  { name: 'Yoda' }, // STEP 30.5 you MUST use "Yoda" (watch spelling) in name for updateExisting:true to happen!!!!
-  {
-    $set: {
-      name: req.body.name,
-      quote: req.body.quote
-    }
-  },
-  {
-    upsert: true
-  }
-)
-  // .then(result => {console.log(result)}) // STEP 30 added "console.log(result)"
-  .then(result => {res.json('Success')}) // STEP 31 remove "console.log(result)" and replace with res.json("success")
-  .catch(error => console.error(error))  // STEP 31.1 END UPDATE in CRUD
-})
-
-// step 29 END
-
-// STEP 32 add this code to INDEX.EJS
-// { /* <div>
-//  <h2>Remove Darth Vadar!</h2>
-//  <p>
-//    Delete one Darth Vadar's quote. Does nothing if there are no more Darth
-//    Vadar's quote
-//  </p>
-//  <button id="delete-button">Delete Darth Vadar's quote</button>
-// </div> */ }
-// END STEP 32
-
-
-
-// STEP 33 START this goes in MAIN.JS
-// const deleteButton = document.querySelector('#delete-button')
-
-// deleteButton.addEventListener('click', _ => {
-//   fetch('/quotes', {
-//     method: 'delete',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({
-//       name: 'Darth Vadar'
-//     })
-//   })
-//     .then(res => {
-//       if (res.ok) return res.json()
-//     })
-//     .then(data => {
-//       window.location.reload()
-//     })
-// })
-// STEP 33 END
-
-
-
-    // STEP 34 deleting Darth Vader messages
-app.delete('/quotes', (req, res) => {
-  quotesCollection.deleteOne(
-    { name: req.body.name }
-  )
-    .then(result => {
-       if (result.deletedCount === 0) {
-        return res.json('No quote to delete')
-      }
-      res.json(`Deleted Darth Vadar's quote`)
-    })
-    .catch(error => console.error(error))
-})
-
-
-// STEP 35 add this underneath delete buttong in INDEX.EJS
-// <div id="message"></div>
-
-
 
 
 
@@ -291,6 +199,7 @@ app.listen(3000, function() {
     console.log('Connected to Database')
   })
   .catch(error => console.error(error))
+
 
 // STEP 14 npm install ejs --save   === ejs is for dynamic content to an HTML file
 

@@ -10,6 +10,12 @@ update.addEventListener('click', _ => {
       quote: 'I find your lack of faith disturbing.'
     })
   })
+  .then(res => {
+      if (res.ok) return res.json()
+    })
+    .then(data => {
+      window.location.reload(true)
+    })
 })
 // STEP 26 END
 
@@ -30,7 +36,7 @@ deleteButton.addEventListener('click', _ => {
       if (res.ok) return res.json()
     })
     .then(data => {
-      window.location.reload()
+      window.location.reload(true)
     })
 })
 // STEP 33 END
