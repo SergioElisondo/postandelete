@@ -12,7 +12,7 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient;
-
+const PORT = 8000
 
 // step 1.5 (back up plan in case step 0.5 doesn't work)
 // in terminal, run this command:
@@ -284,8 +284,8 @@ app.delete('/quotes', (req, res) => {
 
 
 //step 2  and STEP 11 moving this down 
-app.listen(3000, function() {
-  console.log('listening on 3000')
+app.listen(process.env.PORT || PORT, function() {
+  console.log('listening on 8000')
 })
 
     console.log('Connected to Database')
