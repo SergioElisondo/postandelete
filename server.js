@@ -36,7 +36,9 @@ const PORT = 8000
 //   client.close();
 // });
 
-
+let db,
+  dbConnectionStr = process.env.DB_STRING,
+  dbName = 'todo'
 
 // step 8
 // was const = uri
