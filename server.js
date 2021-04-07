@@ -12,7 +12,7 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient;
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || '8000'
 
 // step 1.5 (back up plan in case step 0.5 doesn't work)
 // in terminal, run this command:
