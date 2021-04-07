@@ -43,7 +43,7 @@ const PORT = 8000
 const connectionString = "mongodb+srv://yuki:yuki@cluster0.wic7e.mongodb.net/cat-wars-quotes?retryWrites=true&w=majority";
 
 let db
-let dbConnectionStr = process.env.connectionString
+let dbConnectionStr = process.env.string
 
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
