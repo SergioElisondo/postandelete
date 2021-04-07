@@ -12,7 +12,7 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient;
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 
 // step 1.5 (back up plan in case step 0.5 doesn't work)
 // in terminal, run this command:
@@ -42,13 +42,18 @@ const PORT = 8000
 // was const = uri
 const connectionString = "mongodb+srv://yuki:yuki@cluster0.wic7e.mongodb.net/cat-wars-quotes?retryWrites=true&w=majority";
 
-let db
-let dbConnectionStr = process.env.string
-
+let db,
+    dbConnectionStr = process.env.string,
+    dbName = 'cat-wars-quotes'
+    
+    console.log(db)
+    console.log(dbConnectionStr)
+    console.log(dbName)
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then(client => {
-    const db = client.db('cat-wars-quotes')
+    db = client.db(dbName)
+    // const db = client.db('cat-wars-quotes')
     // step 10 add this
     const quotesCollection = db.collection('quotes')
 
@@ -80,6 +85,12 @@ app.set('view engine', 'ejs')
 // mkdir views
 // touch views/index.ejs
 
+// final step for heroku
+app.set("port", PORT)
+
+// STEP 24.1 now added
+app.use(express.static('public'))
+
 // STEP 9!! THEY ALL GO INERE HERE:
 // CRUD --- use, get, post, listen
  //step 4  ENTER CREATE in CRUD
@@ -89,8 +100,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // step 27 adding JSON readability
 app.use(bodyParser.json())
 
-// STEP 24.1 now added
-app.use(express.static('public'))
+
 
 
 // step 3 (was step 3)
