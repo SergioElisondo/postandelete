@@ -36,13 +36,16 @@ const PORT = 8000
 //   client.close();
 // });
 
-let db,
-  dbConnectionStr = process.env.DB_STRING,
-  dbName = 'todo'
+
 
 // step 8
 // was const = uri
 const connectionString = "mongodb+srv://yuki:yuki@cluster0.wic7e.mongodb.net/cat-wars-quotes?retryWrites=true&w=majority";
+
+let db
+let dbConnectionStr = process.env.connectionString
+
+
 MongoClient.connect(connectionString, { useUnifiedTopology: true })
   .then(client => {
     const db = client.db('cat-wars-quotes')
