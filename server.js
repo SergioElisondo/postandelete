@@ -12,8 +12,8 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-require('dotenv').config()
 const PORT = 3000
+require('dotenv').config()
 // const PORT = process.env.PORT || '3000'
 
 // const mongoose = require('mongoose')
@@ -57,18 +57,18 @@ const PORT = 3000
 
 // step 8
 // was const = uri
-const connectionString = "mongodb+srv://yuki:yukii@cluster0.wic7e.mongodb.net/cat-wars-quotes?retryWrites=true&w=majority";
+// const connectionString = "mongodb+srv://yuki:yukii@cluster0.wic7e.mongodb.net/cat-wars-quotes?retryWrites=true&w=majority";
 // NEW const connectionString = 'mongodb+srv://yuki:yukii@cluster0.qkej8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 let db,
-    dbConnectionStr = PORT,
+    dbConnectionStr = process.env.string,
     dbName = 'cat-wars-quotes'
     
     console.log(db)
     console.log(dbConnectionStr)
     console.log(dbName)
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
   .then(client => {
     db = client.db(dbName)
     // const db = client.db('cat-wars-quotes')
@@ -317,7 +317,7 @@ app.delete('/quotes', (req, res) => {
 
 
 //step 2  and STEP 11 moving this down 
-app.listen(process.env.PORT || PORT, function() {
+app.listen(process.env.PORT || PORT, ()=>{
   console.log('listening on 3000')
 })
 
