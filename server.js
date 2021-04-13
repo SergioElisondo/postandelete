@@ -12,7 +12,10 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-const PORT = process.env.PORT || '3000'
+require('dotenv').config()
+const PORT = 3000
+// const PORT = process.env.PORT || '3000'
+
 // const mongoose = require('mongoose')
 // const url = 'mongodb+srv://yuki:yukii@cluster0.wic7e.mongodb.net/cat-wars-quotes?retryWrites=true&w=majority'
 
